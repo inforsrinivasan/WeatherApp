@@ -15,13 +15,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let proxyAppearance = UINavigationBar.appearance()
         // Override point for customization after application launch.
-        UINavigationBar.appearance().barTintColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
-        UIBarButtonItem.appearance().tintColor = .white
-        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        proxyAppearance.barTintColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0) // rgba(44, 62, 80,1.0)
+        proxyAppearance.tintColor = .white//UIColor.init(displayP3Red: 44/255, green: 62/255, blue: 80/255, alpha: 1.0)
+        proxyAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]//UIColor.init(displayP3Red: 44/255, green: 62/255, blue: 80/255, alpha: 1.0)]
+        proxyAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        if #available(iOS 13.0, *) {
+            ios13NewUI(proxyAppearance: proxyAppearance)
+        }
+        
         return true
     }
+    
+    @available(iOS 13.0, *) func ios13NewUI(proxyAppearance:UINavigationBar){
+        let scrollEdgeAppearance = UINavigationBarAppearance()
+        scrollEdgeAppearance.backgroundColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
+
+        let compactAppearance = UINavigationBarAppearance()
+        compactAppearance.backgroundColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
+
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.backgroundColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
+
+        proxyAppearance.scrollEdgeAppearance = scrollEdgeAppearance
+        proxyAppearance.compactAppearance = compactAppearance
+        proxyAppearance.standardAppearance = standardAppearance
+    }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

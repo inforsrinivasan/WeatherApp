@@ -18,11 +18,26 @@ class WeatherListTableViewController:UITableViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let nav = segue.destination as? UINavigationController{
-            if let addWeatherVC = nav.viewControllers.first as? AddWeatherCityViewController{
-                addWeatherVC.delegate = self
+        if let id = segue.identifier{
+            if id == "addWeatherCityViewController"{
+                self.prepareSegueForAddCityViewController(segue: segue)
+            }
+            else if id == "settingsViewController"{
+                self.prepareSegueForSettingsViewController(segue: segue)
             }
         }
+    }
+    
+    private func prepareSegueForAddCityViewController(segue:UIStoryboardSegue){
+        if let nav = segue.destination as? UINavigationController{
+            if let vc = nav.viewControllers.first as? AddWeatherCityViewController{
+                vc.delegate = self
+            }
+        }
+    }
+    
+    private func prepareSegueForSettingsViewController(segue:UIStoryboardSegue){
+        
     }
     
 }
