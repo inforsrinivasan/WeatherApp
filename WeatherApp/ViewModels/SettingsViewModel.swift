@@ -30,4 +30,20 @@ struct SettingsViewModel{
     func getItemForIndex(index:Int)->Unit{
         return units[index]
     }
+    
+    private var _selectedUnit:Unit = Unit.fahrenheit
+    
+    var selectedUnit:Unit{
+        get{
+            let defaults = UserDefaults.standard
+            if let val = defaults.value(forKey: "unit") as? String{
+                return Unit.init(rawValue: val)!
+            }
+            return self._selectedUnit
+        }
+        set{
+            let defaults = UserDefaults.standard
+            defaults.set(newValue.rawValue, forKey: "unit")
+        }
+    }
 }

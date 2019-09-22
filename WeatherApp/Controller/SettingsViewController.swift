@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol SettingsDelegate{
+    func settingsChanged(vm:SettingsViewModel)
+}
+
 class SettingsViewController:UITableViewController{
     
     private var settingsVM = SettingsViewModel()
+    var settingsDelegate:SettingsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +23,7 @@ class SettingsViewController:UITableViewController{
     }
     
     @IBAction func close(){
+        self.settingsDelegate?.settingsChanged(vm: self.settingsVM)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -37,11 +43,18 @@ extension SettingsViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
         let item = self.settingsVM.getItemForIndex(index: indexPath.row)
         cell.textLabel?.text = item.displayName
+        if item.displayName == self.settingsVM.selectedUnit.displayName{
+            cell.accessoryType = .checkmark
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.visibleCells.forEach{ cell in
+            cell.accessoryType = .none
+        }
         self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        self.settingsVM.selectedUnit = self.settingsVM.getItemForIndex(index: indexPath.row)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

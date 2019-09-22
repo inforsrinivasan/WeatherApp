@@ -38,6 +38,12 @@ class WeatherListTableViewController:UITableViewController{
     
     private func prepareSegueForSettingsViewController(segue:UIStoryboardSegue){
         
+        if let nav = segue.destination as? UINavigationController{
+            if let settingsVC = nav.viewControllers.first as? SettingsViewController{
+                settingsVC.settingsDelegate = self
+            }
+        }
+        
     }
     
 }
@@ -71,4 +77,11 @@ extension WeatherListTableViewController:AddWeatherDelegate{
         self.tableView.reloadData()
     }
     
+}
+
+extension WeatherListTableViewController:SettingsDelegate{
+    func settingsChanged(vm: SettingsViewModel) {
+        self.weatherListViewModel.updateUnit(to: vm.selectedUnit)
+        self.tableView.reloadData()
+    }
 }

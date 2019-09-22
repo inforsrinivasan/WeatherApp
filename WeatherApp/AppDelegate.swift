@@ -24,12 +24,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13.0, *) {
             ios13NewUI(proxyAppearance: proxyAppearance)
         }
+        self.setUpDefaultsSettings()
         
         return true
     }
     
+    
+    private func setUpDefaultsSettings(){
+        let defaults = UserDefaults.standard
+        guard defaults.value(forKey: "unit") != nil else{
+            defaults.set(Unit.fahrenheit.rawValue, forKey: "unit")
+            return
+        }
+    }
+//
     @available(iOS 13.0, *) func ios13NewUI(proxyAppearance:UINavigationBar){
-        let scrollEdgeAppearance = UINavigationBarAppearance()
+        let scrollEdgeAppearance =  UINavigationBarAppearance()
         scrollEdgeAppearance.backgroundColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
 
         let compactAppearance = UINavigationBarAppearance()

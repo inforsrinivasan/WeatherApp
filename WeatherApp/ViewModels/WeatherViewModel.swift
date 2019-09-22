@@ -10,7 +10,7 @@ import Foundation
 
 struct WeatherViewModel:Decodable{
     let name:String
-    let currentTemperature:TemperatureViewModel
+    var currentTemperature:TemperatureViewModel
     
     private enum CodingKeys:String,CodingKey{
         case name
@@ -20,7 +20,7 @@ struct WeatherViewModel:Decodable{
 
 
 struct TemperatureViewModel:Decodable{
-    let temperature:Double
+    var temperature:Double
     let temperatureMinimum:Double
     let temperatureMaximum:Double
     
