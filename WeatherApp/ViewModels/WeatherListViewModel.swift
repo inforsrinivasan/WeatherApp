@@ -36,7 +36,7 @@ struct WeatherListViewModel{
     mutating func toCelcius(){
         self.weatherViewModels = self.weatherViewModels.map{ vm in
             var v = vm
-            v.currentTemperature.temperature = (v.currentTemperature.temperature - 32.0) * (5.0 / 9.0)
+            v.currentTemperature.temperature.value = (v.currentTemperature.temperature.value - 32.0) * (5.0 / 9.0)
             return v
         }
     }
@@ -44,7 +44,7 @@ struct WeatherListViewModel{
     mutating func toFarenheit(){
         self.weatherViewModels = self.weatherViewModels.map{ vm in
             var v = vm
-            v.currentTemperature.temperature = (v.currentTemperature.temperature * (9.0 / 5.0)) + 32
+            v.currentTemperature.temperature.value = (v.currentTemperature.temperature.value * (9.0 / 5.0)) + 32
             return v
         }
     }
